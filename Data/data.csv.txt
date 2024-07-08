@@ -1,0 +1,49 @@
+
+
+dataIn/spotify/data.csv
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 170653 entries, 0 to 170652
+Data columns (total 19 columns):
+ #   Column            Non-Null Count   Dtype  
+---  ------            --------------   -----  
+ 0   valence           170653 non-null  float64
+ 1   year              170653 non-null  int64  
+ 2   acousticness      170653 non-null  float64
+ 3   artists           170653 non-null  object 
+ 4   danceability      170653 non-null  float64
+ 5   duration_ms       170653 non-null  int64  
+ 6   energy            170653 non-null  float64
+ 7   explicit          170653 non-null  int64  
+ 8   id                170653 non-null  object 
+ 9   instrumentalness  170653 non-null  float64
+ 10  key               170653 non-null  int64  
+ 11  liveness          170653 non-null  float64
+ 12  loudness          170653 non-null  float64
+ 13  mode              170653 non-null  int64  
+ 14  name              170653 non-null  object 
+ 15  popularity        170653 non-null  int64  
+ 16  release_date      170653 non-null  object 
+ 17  speechiness       170653 non-null  float64
+ 18  tempo             170653 non-null  float64
+dtypes: float64(9), int64(6), object(4)
+memory usage: 24.7+ MB
+None
+             valence           year   acousticness  ...     popularity    speechiness          tempo
+count  170653.000000  170653.000000  170653.000000  ...  170653.000000  170653.000000  170653.000000
+mean        0.528587    1976.787241       0.502115  ...      31.431794       0.098393     116.861590
+std         0.263171      25.917853       0.376032  ...      21.826615       0.162740      30.708533
+min         0.000000    1921.000000       0.000000  ...       0.000000       0.000000       0.000000
+25%         0.317000    1956.000000       0.102000  ...      11.000000       0.034900      93.421000
+50%         0.540000    1977.000000       0.516000  ...      33.000000       0.045000     114.729000
+75%         0.747000    1999.000000       0.893000  ...      48.000000       0.075600     135.537000
+max         1.000000    2020.000000       0.996000  ...     100.000000       0.970000     243.507000
+
+[8 rows x 15 columns]
+   valence  year  acousticness  ... release_date  speechiness    tempo
+0   0.0594  1921         0.982  ...         1921       0.0366   80.954
+1   0.9630  1921         0.732  ...         1921       0.4150   60.936
+2   0.0394  1921         0.961  ...         1921       0.0339  110.339
+3   0.1650  1921         0.967  ...         1921       0.0354  100.109
+4   0.2530  1921         0.957  ...         1921       0.0380  101.665
+
+[5 rows x 19 columns]

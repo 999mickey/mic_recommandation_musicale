@@ -1,0 +1,13 @@
+/mic_recommandation_musicale $ python -m venv .venv
+
+/mic_recommandation_musicale $ source .venv/bin/activate
+
+/mic_recommandation_musicale $ pip install -r requirements.txt
+
+
+https://github.com/999mickey/mic_recommandation_musicale
+
+git init
+git remote add origin https://github.com/999mickey/mic_recommandation_musicale
+
+git remote set-url origin https://github.com/999mickey/mic_recommandation_musicale
