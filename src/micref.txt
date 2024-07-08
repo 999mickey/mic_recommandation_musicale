@@ -4,10 +4,38 @@
 
 /mic_recommandation_musicale $ pip install -r requirements.txt
 
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""git
 https://github.com/999mickey/mic_recommandation_musicale
 
 git init
 git remote add origin https://github.com/999mickey/mic_recommandation_musicale
 
 git remote set-url origin https://github.com/999mickey/mic_recommandation_musicale
+
+git push --set-upstream origin mic999
+
+Énumération des objets: 32, fait.
+Décompte des objets: 100% (32/32), fait.
+Compression par delta en utilisant jusqu'à 8 fils d'exécution
+Compression des objets: 100% (31/31), fait.
+Écriture des objets: 100% (32/32), 13.08 Mio | 79.00 Kio/s, fait.
+Total 32 (delta 2), réutilisés 0 (delta 0), réutilisés du pack 0
+remote: Resolving deltas: 100% (2/2), done.
+remote: 
+remote: Create a pull request for 'mic999' on GitHub by visiting:
+remote:      https://github.com/999mickey/mic_recommandation_musicale/pull/new/mic999
+remote: 
+To https://github.com/999mickey/mic_recommandation_musicale
+ * [new branch]      mic999 -> mic999
+La branche 'mic999' est paramétrée pour suivre la branche distante 'mic999' depuis 'origin'.
+
+##############################a partir d un nouveau répertoire
+
+
+$ git clone https://github.com/999mickey/mic_recommandation_musicale --branch mic999
+git branch mic999
+
+git branch --set-upstream-to=origin/<branche> mic999
+
+
+

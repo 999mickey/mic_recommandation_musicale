@@ -6,7 +6,9 @@ def input_variables_setter(file_name, filter):
     #filter.set_target_key_name('sentiment_score')
     #filter.set_user_key_name('user_id')
     #filter.set_item_key_name('track_id')
-    
+    if filter.file_name == '':
+        filter.file_name = file_name
+
     if file_name.find("user_and_track_sentiment") != -1:
         filter.set_target_key_name('sentiment_score')
         filter.set_user_key_name('user_id')

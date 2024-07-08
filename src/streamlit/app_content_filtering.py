@@ -11,7 +11,11 @@ import sys,os
 import json
 
 
-sys.path.append(os.path.realpath('..'))
+#sys.path.append(os.path.realpath('..'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'models'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..',''))
+
+
 
 
 from models.mic_filtering_class import  mic_content_filtering ,mic_base_filter , mic_hybrid_filtering, mic_collaborativ_filtering
@@ -30,9 +34,12 @@ from surprise.prediction_algorithms.knns import KNNBasic
 from display_user_selection import display_user_selection , display_nb_pres_selection,display_predictors 
 from display_user_selection import display_nb_pres,load_data , display_nan_replacement_options
 
+
 import time
 start = time.time()
 
+
+st.set_option('deprecation.showPyplotGlobalUse', False)
 content_path = '../../Data/'
 
 main_slot = "home_page"
@@ -190,52 +197,54 @@ if page == pages[1] :
     print("input_type = ",input_type)
     if  input_type == 'En simulation':
             print("--------------> intype is generated")
-            usernb_input = st.number_input("Choisir un nombre d utilisateur =",value=5,min_value=3,max_value=20, placeholder="usernb_input")
-            tracknamenb_input = st.number_input("Choisir le  nombre noms de morceaux =",value=20,min_value=10,max_value=200, placeholder="tracknamenb_input")
-            genrenb_input = st.number_input("Choisir nombre de genres =",value=3,min_value=1,max_value=8, placeholder="genrenb_input")
-            tracknb_input = st.number_input("Choisir nombre de morceaux =",value=40,min_value=10,max_value=200, placeholder="tracknb_input")
-            minvote_nb = 4
-            minvote_nb = st.number_input("Choisir nombre de votes min =",value=4,min_value=2,max_value=20, placeholder="minvote_nb")            
-            maxvote_nb = 10
-            #todo check for coherence with min votes num
-            maxvote_nb = st.number_input("Choisir nombre de votes min =",value=10,min_value=10,max_value=200, placeholder="maxvote_nb")
-            submit = st.button("Valider la simulation")
-            if submit :
-                ltext = "generate_df_simu("+str(usernb_input)+ ","+str(tracknamenb_input)+ ","+ str(genrenb_input) +","+str(tracknb_input)+"," + str(minvote_nb) +"," +str(maxvote_nb)+")"
-                st.write( ltext)
-                df = generate_df_simu(usernb_input,tracknamenb_input,genrenb_input,tracknb_input,minvote_nb,maxvote_nb)
-                set_state(main_slot, ("data-frame",df))
-                input_variables_setter("simu",my_data)
-                input_variables_setter("simu",my_visualizer)
-                input_variables_setter("simu",my_content_filter)
-                input_variables_setter("simu",my_collaborativ_filtering)
-                input_variables_setter("simu",my_hybrid_filtering)
-                
-                my_data.data_frame = df       
-                my_content_filter.data_frame = df
+            with  st.form("simu_params"):                
+                usernb_input = st.number_input("Choisir un nombre d utilisateur =",value=5,min_value=3,max_value=20, placeholder="usernb_input")
+                tracknamenb_input = st.number_input("Choisir le  nombre noms de morceaux =",value=20,min_value=10,max_value=200, placeholder="tracknamenb_input")
+                genrenb_input = st.number_input("Choisir nombre de genres =",value=3,min_value=1,max_value=8, placeholder="genrenb_input")
+                tracknb_input = st.number_input("Choisir nombre de morceaux =",value=40,min_value=10,max_value=200, placeholder="tracknb_input")
+                minvote_nb = 4
+                minvote_nb = st.number_input("Choisir nombre de votes min =",value=4,min_value=2,max_value=20, placeholder="minvote_nb")            
+                maxvote_nb = 10
+                #todo check for coherence with min votes num
+                maxvote_nb = st.number_input("Choisir nombre de votes min =",value=10,min_value=10,max_value=200, placeholder="maxvote_nb")
+                submit = st.form_submit_button(label="Valider ", on_click=form_update, args=(main_slot,))        
+                #submit = st.button("Valider la simulation")
+                if submit :
+                    ltext = "generate_df_simu("+str(usernb_input)+ ","+str(tracknamenb_input)+ ","+ str(genrenb_input) +","+str(tracknb_input)+"," + str(minvote_nb) +"," +str(maxvote_nb)+")"
+                    st.write( ltext)
+                    df = generate_df_simu(usernb_input,tracknamenb_input,genrenb_input,tracknb_input,minvote_nb,maxvote_nb)
+                    set_state(main_slot, ("data-frame",df))
+                    input_variables_setter("simu",my_data)
+                    input_variables_setter("simu",my_visualizer)
+                    input_variables_setter("simu",my_content_filter)
+                    input_variables_setter("simu",my_collaborativ_filtering)
+                    input_variables_setter("simu",my_hybrid_filtering)
+                    
+                    my_data.data_frame = df       
+                    my_content_filter.data_frame = df
 
-                if len(my_content_filter.features ):
-                    my_content_filter.normalize_data()
-                
-                my_visualizer.data_frame = df
-                my_collaborativ_filtering.data_frame = df
-                my_hybrid_filtering.data_frame = df        
-                current_filename = "simu"
-                name ="simu"
-                set_state(main_slot, ("file_name", name))
-                st.write('Le fichier choisi est :', name)  
-                st.write("Forme :",df.shape)
-                buffer = io.StringIO()
-                dfinfo = pd.DataFrame(df.info())
-                df.info(buf=buffer)
-                s = buffer.getvalue()
-                st.text("Info()")
-                st.text(s)
-                #st.text(dfinfo.head())
-                st.text("Head()")
-                st.dataframe(df.head())
-                st.text("Describe()")
-                st.dataframe(df.describe())        
+                    if len(my_content_filter.features ):
+                        my_content_filter.normalize_data()
+                    
+                    my_visualizer.data_frame = df
+                    my_collaborativ_filtering.data_frame = df
+                    my_hybrid_filtering.data_frame = df        
+                    current_filename = "simu"
+                    name ="simu"
+                    set_state(main_slot, ("file_name", name))
+                    st.write('Le fichier choisi est :', name)  
+                    st.write("Forme :",df.shape)
+                    buffer = io.StringIO()
+                    dfinfo = pd.DataFrame(df.info())
+                    df.info(buf=buffer)
+                    s = buffer.getvalue()
+                    st.text("Info()")
+                    st.text(s)
+                    #st.text(dfinfo.head())
+                    st.text("Head()")
+                    st.dataframe(df.head())
+                    st.text("Describe()")
+                    st.dataframe(df.describe())        
             
     elif input_type == 'A partir d un fichier':
         print("--------------> intype is from file")
@@ -307,24 +316,37 @@ if page == pages[2] :
                 with st.spinner('Calcul en cours...'):
                     fig = my_visualizer.plot_heatmap()
                     st.pyplot(fig)
-            checktitle = "Présenter le Distribution de "+my_visualizer.target_key_name
+            
 
             if my_visualizer.target_key_name != '' :
+                checktitle = "Présenter le Distribution de "+my_visualizer.target_key_name
                 if st.checkbox(checktitle,key="dist_target") :
                     with st.spinner('Calcul en cours...'):
                         plt.title("Distribution de "+my_visualizer.target_key_name)
                         st.pyplot(my_visualizer.plot_repartion_count_target(my_visualizer.target_key_name))
+
                 title = "Présenter le cercle de corrélation "
+
                 if st.checkbox("Cercle de corrélation",key="corr_target") :
                     with st.spinner('Calcul en cours...'):
                         plt.title("Cercle de corrélation ")
                         st.pyplot(my_visualizer.plot_corrrelation_circle())
 
-                title = "Présenter la répartition par "+ my_visualizer.target_key_name            
-                if st.checkbox(title,key="rep_target") :
+                title = "Présenter l'analyse des principaux composants par "+ my_visualizer.target_key_name            
+                if st.checkbox(title,key="pca") :
                     with st.spinner('Calcul en cours...'):
                         plt.title(title)
                         st.pyplot(my_visualizer.plot_groupement_from_key(my_visualizer.target_key_name))            
+
+                title = "Présenter l'analyse des principaux composants en camenbert"            
+                if st.checkbox(title,key="pc_cam") :
+                    with st.spinner('Calcul en cours...'):
+                        plt.title(title)
+                        st.pyplot(my_visualizer.plot_pie_of_principal_comp())            
+
+                
+
+                
 
         if 'genre' in my_visualizer.data_frame.columns:
             title = "Présenter la répartition par 'genre"

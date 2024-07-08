@@ -499,6 +499,9 @@ class mic_content_filtering( mic_base_filter):
         
         #self.df_normalized.index = self.data_frame['song_id']
         self.df_normalized = pd.DataFrame(normalize(self.df_normalized, axis=1))
+        #from sklearn.preprocessing import StandardScaler
+        #sc = StandardScaler()
+        #Z = sc.fit_transform(dfwithoutname)
 
         self.df_normalized.index = self.data_frame['song_id']
 
